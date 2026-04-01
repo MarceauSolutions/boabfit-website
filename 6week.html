@@ -16,10 +16,10 @@
 
     <style>
         :root {
-            --pink: #E8736F;
-            --pink-light: #f0918e;
-            --pink-dark: #c7504c;
-            --pink-glow: rgba(232, 115, 111, 0.25);
+            --pink: #E84B8A;
+            --pink-light: #f472a8;
+            --pink-dark: #c7306e;
+            --pink-glow: rgba(232, 75, 138, 0.25);
             --grey-dark: #333333;
             --grey: #666666;
             --grey-light: #999999;
@@ -95,7 +95,7 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(232, 115, 111, 0.1);
+            background: rgba(232, 75, 138, 0.1);
             border: 1px solid var(--pink);
             color: var(--pink);
             font-family: 'Montserrat', sans-serif;
@@ -214,7 +214,7 @@
         .cta-button:hover {
             background: var(--pink-dark);
             transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(232, 115, 111, 0.4);
+            box-shadow: 0 12px 40px rgba(232, 75, 138, 0.4);
         }
 
         @keyframes fadeInUp {
@@ -560,25 +560,7 @@
 
         <div class="glow-divider"></div>
 
-        <!-- ── What You Get ────────────────────────── -->
-        <section class="section fade-in">
-            <p class="section-label">What's Included</p>
-            <h2 class="section-title">I've Done the Thinking &mdash;<br>You Just Follow Along.</h2>
-            <p class="section-text">Clear reps, sets & progression with timers and video examples. I'll be doing every single workout with you.</p>
-
-            <ul class="checklist">
-                <li><span class="check-icon">&#x2714;</span> Daily fully guided workouts</li>
-                <li><span class="check-icon">&#x2714;</span> Pre-scheduled calendar system</li>
-                <li><span class="check-icon">&#x2714;</span> In-app progress tracking</li>
-                <li><span class="check-icon">&#x2714;</span> BOABFIT program & app access</li>
-                <li><span class="check-icon">&#x2714;</span> Instant email access post-signup</li>
-                <li><span class="check-icon">&#x2714;</span> Creator-led coaching &mdash; I do it with you</li>
-            </ul>
-        </section>
-
-        <div class="glow-divider"></div>
-
-        <!-- ── Showcase Images ─────────────────────── -->
+        <!-- ── Showcase Images (right after hero) ──── -->
         <section class="showcase fade-in">
             <p class="section-label">Inside the Program</p>
             <h2 class="section-title" style="text-align:center; margin-bottom: 2rem;">Your Fully Guided Daily Workouts &mdash; Just Press Play</h2>
@@ -605,6 +587,24 @@
                     <div class="showcase-label">Real Results</div>
                 </div>
             </div>
+        </section>
+
+        <div class="glow-divider"></div>
+
+        <!-- ── What You Get (after photos) ─────────── -->
+        <section class="section fade-in">
+            <p class="section-label">What's Included</p>
+            <h2 class="section-title">I've Done the Thinking &mdash;<br>You Just Follow Along.</h2>
+            <p class="section-text">Clear reps, sets & progression with timers and video examples. I'll be doing every single workout with you.</p>
+
+            <ul class="checklist">
+                <li><span class="check-icon">&#x2714;</span> Daily fully guided workouts</li>
+                <li><span class="check-icon">&#x2714;</span> Pre-scheduled calendar system</li>
+                <li><span class="check-icon">&#x2714;</span> In-app progress tracking</li>
+                <li><span class="check-icon">&#x2714;</span> BOABFIT program & app access</li>
+                <li><span class="check-icon">&#x2714;</span> Instant email access post-signup</li>
+                <li><span class="check-icon">&#x2714;</span> Creator-led coaching &mdash; I do it with you</li>
+            </ul>
         </section>
 
         <div class="glow-divider"></div>
@@ -807,14 +807,14 @@
                 if (p.glow || p._mouseBoost > 0.3) {
                     ctx.beginPath();
                     ctx.arc(drawX, drawY, finalSize * 8, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(232, 115, 111, ' + (alpha * 0.06) + ')';
+                    ctx.fillStyle = 'rgba(232, 75, 138, ' + (alpha * 0.06) + ')';
                     ctx.fill();
                 }
 
                 // Pink particle
                 ctx.beginPath();
                 ctx.arc(drawX, drawY, finalSize, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(232, 115, 111, ' + alpha + ')';
+                ctx.fillStyle = 'rgba(232, 75, 138, ' + alpha + ')';
                 ctx.fill();
             }
 
