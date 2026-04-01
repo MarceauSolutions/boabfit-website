@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6-Week Barbie Body Program | BOABFIT by Julia Marceau</title>
+    <meta name="description" content="6-Week Barbie Body program by BOABFIT. 5 days/week, 30 min/day. Fully guided workouts, pre-scheduled calendar, in-app tracking. Transform your body with Julia.">
+
+    <meta property="og:title" content="6-Week Barbie Body | BOABFIT">
+    <meta property="og:description" content="Hot girls don't overthink their workouts — they follow a system. 6 weeks. 5 days/week. 30 min/day. Let's go.">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --gold: #C9963C;
+            --gold-light: #d4a94f;
+            --gold-dark: #8B6914;
+            --gold-glow: rgba(201, 150, 60, 0.3);
+            --dark: #111111;
+            --darker: #0a0a0a;
+            --card: #1a1a1a;
+            --card-border: #2a2a2a;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Dynamic particle canvas */
+        #particle-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content { position: relative; z-index: 1; }
+
+        /* ── Hero Section ──────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(10,10,10,0.3) 0%,
+                rgba(10,10,10,0.7) 50%,
+                var(--darker) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(201, 150, 60, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--white);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+        }
+
+        .hero-details {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1.5rem 0 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.8s forwards;
+        }
+
+        .hero-detail {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .hero-detail-separator { color: var(--card-border); }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 1.1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px var(--gold-glow);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 1s forwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(201, 150, 60, 0.5);
+        }
+
+        .cta-visible {
+            opacity: 1;
+            animation: none;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Gold Glow Divider ─────────────────────── */
+        .glow-divider {
+            height: 2px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--gold-dark) 20%,
+                var(--gold) 50%,
+                var(--gold-dark) 80%,
+                transparent 100%
+            );
+            max-width: 300px;
+            margin: 4rem auto;
+            opacity: 0.6;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* ── Section Styling ───────────────────────── */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            line-height: 1.2;
+        }
+
+        .section-text {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* ── Feature Cards ─────────────────────────── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 150, 60, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── Checklist ─────────────────────────────── */
+        .checklist {
+            max-width: 500px;
+            margin: 2rem auto;
+            list-style: none;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .checklist li:last-child { border-bottom: none; }
+
+        .check-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* ── Image Showcase ────────────────────────── */
+        .showcase {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .showcase-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+            aspect-ratio: 4/5;
+        }
+
+        .showcase-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 150, 60, 0.15);
+        }
+
+        .showcase-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .showcase-label {
+            position: absolute;
+            bottom: 0;
+            left: 0; right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* ── How It Works ──────────────────────────── */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+            min-width: 40px;
+        }
+
+        .step-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── Bottom CTA ────────────────────────────── */
+        .bottom-cta {
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .bottom-cta .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .bottom-cta .section-text {
+            margin-bottom: 2rem;
+        }
+
+        /* ── Fire Particle Container ───────────────── */
+        .fire-container {
+            position: absolute;
+            bottom: 0;
+            left: 0; right: 0;
+            height: 200px;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .fire-particle {
+            position: absolute;
+            bottom: -20px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fireRise linear infinite;
+        }
+
+        @keyframes fireRise {
+            0% { opacity: 0; transform: translateY(0) scale(1) rotate(0deg); }
+            15% { opacity: 0.8; }
+            50% { opacity: 0.5; transform: translateY(-80px) scale(0.6) rotate(45deg); }
+            100% { opacity: 0; transform: translateY(-200px) scale(0.1) rotate(90deg); }
+        }
+
+        /* ── Footer ────────────────────────────────── */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .footer-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-ig a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-ig a:hover { color: var(--gold); }
+
+        .footer-credit {
+            margin-top: 1.5rem;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.15);
+        }
+
+        .footer-credit a {
+            color: rgba(255,255,255,0.25);
+            text-decoration: none;
+        }
+
+        .footer-credit a:hover { color: var(--gold); }
+
+        /* ── Scroll Animations ─────────────────────── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Mobile ────────────────────────────────── */
+        @media (max-width: 768px) {
+            .hero { min-height: 90vh; padding: 2rem 1.5rem; }
+            .hero-details { gap: 1rem; }
+            .showcase-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .cta-button { padding: 1rem 2rem; font-size: 0.85rem; }
+            .step { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dynamic gold particle canvas -->
+    <canvas id="particle-bg"></canvas>
+
+    <div class="content">
+
+        <!-- ── Hero ────────────────────────────────── -->
+        <section class="hero">
+            <img src="https://images.squarespace-cdn.com/content/v1/67d49a6fbd9b696f2838f1d8/6da6c82c-6dc9-4a0b-bb4f-c4f358c4394b/Image+9-9-25+at+12.07%E2%80%AFPM.jpg"
+                 alt="BOABFIT 6-Week Program" class="hero-bg" loading="eager">
+            <div class="hero-content">
+                <span class="hero-badge">BOABFIT by Julia Marceau</span>
+                <h1 class="hero-title">Hot Girls Don't Overthink Their Workouts &mdash; <span>They Follow a System.</span></h1>
+                <p class="hero-sub">6-Week BARBIE BODY &mdash; Your transformation starts now.</p>
+                <div class="hero-details">
+                    <span class="hero-detail">6 Weeks</span>
+                    <span class="hero-detail-separator">&bull;</span>
+                    <span class="hero-detail">5 Days/Week</span>
+                    <span class="hero-detail-separator">&bull;</span>
+                    <span class="hero-detail">30 Min/Day</span>
+                    <span class="hero-detail-separator">&bull;</span>
+                    <span class="hero-detail">Dumbbells + Band</span>
+                </div>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfboabfit-signup/viewform" class="cta-button" id="cta-hero">
+                    Begin Your Body Transformation
+                </a>
+            </div>
+            <div class="fire-container" id="heroFire"></div>
+        </section>
+
+        <div class="glow-divider"></div>
+
+        <!-- ── What You Get ────────────────────────── -->
+        <section class="section fade-in">
+            <p class="section-label">What's Included</p>
+            <h2 class="section-title">I've Done the Thinking &mdash;<br>You Just Follow Along.</h2>
+            <p class="section-text">Clear reps, sets & progression with timers and video examples. I'll be doing every single workout with you.</p>
+
+            <ul class="checklist">
+                <li><span class="check-icon">&#x2714;</span> Daily fully guided workouts</li>
+                <li><span class="check-icon">&#x2714;</span> Pre-scheduled calendar system</li>
+                <li><span class="check-icon">&#x2714;</span> In-app progress tracking</li>
+                <li><span class="check-icon">&#x2714;</span> BOABFIT program & app access</li>
+                <li><span class="check-icon">&#x2714;</span> Instant email access post-signup</li>
+                <li><span class="check-icon">&#x2714;</span> Creator-led coaching &mdash; I do it with you</li>
+            </ul>
+        </section>
+
+        <div class="glow-divider"></div>
+
+        <!-- ── Showcase Images ─────────────────────── -->
+        <section class="showcase fade-in">
+            <p class="section-label">Inside the Program</p>
+            <h2 class="section-title" style="text-align:center; margin-bottom: 2rem;">Your Fully Guided Daily Workouts &mdash; Just Press Play</h2>
+
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <img src="https://images.squarespace-cdn.com/content/v1/67d49a6fbd9b696f2838f1d8/4bc820b5-14cd-41c6-9565-fafce417eba0/IMG_1240.jpeg"
+                         alt="BOABFIT guided workouts" loading="lazy">
+                    <div class="showcase-label">Guided Workouts</div>
+                </div>
+                <div class="showcase-item">
+                    <img src="https://images.squarespace-cdn.com/content/v1/67d49a6fbd9b696f2838f1d8/7ec25168-3e67-442d-97df-d04b682a8adf/A0091AA9-ED18-4CA1-8AF6-BE8142919293.jpeg"
+                         alt="BOABFIT pre-scheduled calendar" loading="lazy">
+                    <div class="showcase-label">Pre-Scheduled Calendar</div>
+                </div>
+                <div class="showcase-item">
+                    <img src="https://images.squarespace-cdn.com/content/v1/67d49a6fbd9b696f2838f1d8/1e84f291-2f55-42c6-bbc3-5e52efe901d5/IMG_1137.jpeg"
+                         alt="BOABFIT progress tracking" loading="lazy">
+                    <div class="showcase-label">Track Your Progress</div>
+                </div>
+                <div class="showcase-item">
+                    <img src="https://images.squarespace-cdn.com/content/v1/67d49a6fbd9b696f2838f1d8/d267e721-0dd6-43c0-b636-e72f8c37e86c/IMG_1365.jpeg"
+                         alt="BOABFIT results" loading="lazy">
+                    <div class="showcase-label">Real Results</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="glow-divider"></div>
+
+        <!-- ── Features ────────────────────────────── -->
+        <section class="section fade-in">
+            <p class="section-label">Why It Works</p>
+            <h2 class="section-title">Everything You Need. Nothing You Don't.</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#x1F4F1;</div>
+                    <div class="feature-title">In-App Access</div>
+                    <div class="feature-text">Full program delivered through the BOABFIT app. Timers, video demos, and tracking built in.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#x1F4C5;</div>
+                    <div class="feature-title">Pre-Scheduled</div>
+                    <div class="feature-text">Your calendar is already built. Just show up and press play. No guessing what to do.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#x1F3CB;&#xFE0F;&#x200D;&#x2640;&#xFE0F;</div>
+                    <div class="feature-title">30 Min Workouts</div>
+                    <div class="feature-text">Efficient resistance training. Dumbbells + booty band. 5 days a week. That's it.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#x1F4AA;</div>
+                    <div class="feature-title">I Do It With You</div>
+                    <div class="feature-text">I'm not just giving you a plan &mdash; I'll be doing every workout alongside you with live coaching videos.</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="glow-divider"></div>
+
+        <!-- ── How It Works ────────────────────────── -->
+        <section class="section fade-in">
+            <p class="section-label">How It Works</p>
+            <h2 class="section-title">Once You Sign Up&hellip;</h2>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Instant Email Access</h3>
+                        <p>You'll get immediate access to the BOABFIT app and your full 6-week program the moment you sign up.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Follow the Calendar</h3>
+                        <p>Your workouts are pre-scheduled. Open the app, check today's session, and press play. No thinking required.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Train With Me</h3>
+                        <p>I'll be posting live coaching videos on Instagram during the 6 weeks. Tips, tricks, and motivation &mdash; we do this together.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Track & Transform</h3>
+                        <p>Log your progress in-app. Watch your numbers go up and your body change over 6 weeks. 8 weeks total access.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="glow-divider"></div>
+
+        <!-- ── Bottom CTA ──────────────────────────── -->
+        <section class="bottom-cta fade-in">
+            <div class="fire-container" id="bottomFire"></div>
+            <p class="section-label">Ready?</p>
+            <h2 class="section-title">Stop Overthinking.<br>Start Transforming.</h2>
+            <p class="section-text">6 weeks. 5 days a week. 30 minutes a day. Dumbbells & a booty band. That's all you need. I'll handle the rest.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfboabfit-signup/viewform" class="cta-button cta-visible">
+                Begin Your Body Transformation
+            </a>
+        </section>
+
+        <!-- ── Footer ──────────────────────────────── -->
+        <footer>
+            <div class="footer-brand">BOABFIT</div>
+            <div class="footer-ig">
+                <a href="https://instagram.com/boabfit" target="_blank" rel="noopener">@boabfit</a>
+            </div>
+            <div class="footer-credit">
+                Site by <a href="https://marceausolutions.com" target="_blank" rel="noopener">Marceau Solutions</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+    // ============================================
+    // DYNAMIC GOLD PARTICLE BACKGROUND
+    // Floating gold dust inspired by Flames of Passion
+    // + EDM Nights organic movement
+    // ============================================
+    (function() {
+        var canvas = document.getElementById('particle-bg');
+        var ctx = canvas.getContext('2d');
+        var width, height, particles = [];
+        var PARTICLE_COUNT = window.innerWidth < 768 ? 60 : 120;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = document.documentElement.scrollHeight;
+        }
+
+        function createParticle(i) {
+            return {
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 2.5 + 0.5,
+                alpha: Math.random() * 0.4 + 0.05,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: -(Math.random() * 0.4 + 0.1),
+                wobblePhase: Math.random() * Math.PI * 2,
+                wobbleSpeed: Math.random() * 0.015 + 0.005,
+                pulsePhase: Math.random() * Math.PI * 2,
+                pulseSpeed: Math.random() * 0.02 + 0.01,
+                glow: Math.random() > 0.85
+            };
+        }
+
+        function init() {
+            resize();
+            particles = [];
+            for (var i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(createParticle(i));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            var scrollY = window.scrollY || 0;
+
+            for (var i = 0; i < particles.length; i++) {
+                var p = particles[i];
+
+                // Drift
+                p.wobblePhase += p.wobbleSpeed;
+                p.pulsePhase += p.pulseSpeed;
+                p.x += p.speedX + Math.sin(p.wobblePhase) * 0.3;
+                p.y += p.speedY;
+
+                // Wrap around
+                if (p.y < -10) { p.y = height + 10; p.x = Math.random() * width; }
+                if (p.x < -10) p.x = width + 10;
+                if (p.x > width + 10) p.x = -10;
+
+                // Pulse
+                var sizeMult = 1 + Math.sin(p.pulsePhase) * 0.4;
+                var alpha = p.alpha * (0.6 + Math.sin(p.pulsePhase * 0.7) * 0.4);
+
+                // Only draw if in viewport (with buffer)
+                var screenY = p.y - scrollY;
+                if (screenY < -100 || screenY > window.innerHeight + 100) continue;
+
+                // Draw glow for special particles
+                if (p.glow) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * sizeMult * 6, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(201, 150, 60, ' + (alpha * 0.08) + ')';
+                    ctx.fill();
+                }
+
+                // Draw particle
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * sizeMult, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(201, 150, 60, ' + alpha + ')';
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', function() { resize(); });
+        window.addEventListener('scroll', function() {
+            canvas.style.transform = 'translateY(' + (window.scrollY) + 'px)';
+        });
+
+        init();
+        animate();
+    })();
+
+    // ============================================
+    // FIRE PARTICLES (Flames of Passion style)
+    // ============================================
+    function createFireParticles(containerId, count) {
+        var container = document.getElementById(containerId);
+        if (!container) return;
+        var colors = [
+            'radial-gradient(circle, #C9963C, #8B6914)',
+            'radial-gradient(circle, #d4a94f, #C9963C)',
+            'radial-gradient(circle, #e6c170, #d4a94f)',
+            'radial-gradient(circle, #a07828, #6b5010)',
+            'radial-gradient(circle, #f0d090, #C9963C)',
+        ];
+        for (var i = 0; i < count; i++) {
+            var particle = document.createElement('div');
+            particle.className = 'fire-particle';
+            var size = Math.random() * 12 + 4;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+            particle.style.animationDelay = (Math.random() * 3) + 's';
+            container.appendChild(particle);
+        }
+    }
+
+    createFireParticles('heroFire', 40);
+    createFireParticles('bottomFire', 30);
+
+    // ============================================
+    // SCROLL FADE-IN ANIMATIONS
+    // ============================================
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+        observer.observe(el);
+    });
+    </script>
+</body>
+</html>
