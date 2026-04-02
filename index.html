@@ -3,1187 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOAB Fit | Julia Marceau - Women's Fitness & Strength Training</title>
+    <title>BOABFIT | Julia Marceau — Women's Fitness & Strength Training</title>
+    <meta name="description" content="BOABFIT by Julia Marceau. Women's fitness programs, guided workouts, and strength training. Transform your body with personalized coaching.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --coral: #E8736F;
-            --coral-dark: #D45A56;
-            --peach: #FFEEE9;
-            --cream: #FFF9F7;
-            --charcoal: #2D2D2D;
-            --text-gray: #5A5A5A;
-            --gold: #C4A35A;
+            --pink: #E84B8A;
+            --pink-light: #f472a8;
+            --pink-dark: #c7306e;
+            --pink-glow: rgba(232, 75, 138, 0.25);
+            --grey-dark: #333333;
+            --grey: #666666;
+            --grey-light: #999999;
+            --grey-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --card-border: #e8e8e8;
+            --bg: #ffffff;
+            --text: #333333;
+            --text-muted: #777777;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--charcoal);
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.7;
-            background: var(--cream);
+            overflow-x: hidden;
         }
 
-        /* Navigation */
-        nav {
+        #particle-bg {
             position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+        }
+
+        .content { position: relative; z-index: 1; }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
             transition: all 0.3s ease;
         }
-
         nav.scrolled {
-            background: rgba(255, 249, 247, 0.98);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
             padding: 0.7rem 5%;
         }
-
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--charcoal);
-            text-decoration: none;
-            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem; font-weight: 900;
+            color: var(--grey-dark); text-decoration: none; letter-spacing: 2px;
         }
-
-        .logo span {
-            color: var(--coral);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
+        .logo span { color: var(--pink); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
-            text-decoration: none;
-            color: var(--charcoal);
-            font-weight: 500;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: color 0.3s;
+            text-decoration: none; color: var(--grey-dark);
+            font-weight: 600; font-size: 0.85rem;
+            letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s;
         }
+        .nav-links a:hover { color: var(--pink); }
+        .mobile-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .mobile-menu span { width: 25px; height: 2px; background: var(--grey-dark); transition: 0.3s; }
 
-        .nav-links a:hover {
-            color: var(--coral);
-        }
-
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .mobile-menu span {
-            width: 25px;
-            height: 2px;
-            background: var(--charcoal);
-            transition: 0.3s;
-        }
-
-        /* Hero Section */
+        /* Hero */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, var(--peach) 0%, var(--cream) 50%, #FFF5F0 100%);
-            position: relative;
-            overflow: hidden;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 6rem 2rem 3rem; position: relative; overflow: hidden;
         }
-
         .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(ellipse, var(--coral) 0%, transparent 70%);
-            opacity: 0.08;
-            transform: rotate(-15deg);
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.7) 50%, var(--bg) 100%);
+            z-index: 1;
         }
-
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 6rem 5%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center top; z-index: 0;
         }
-
-        .hero-text {
-            z-index: 2;
-        }
-
-        .hero-tag {
+        .hero-content { position: relative; z-index: 2; max-width: 700px; }
+        .hero-badge {
             display: inline-block;
-            background: var(--coral);
-            color: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
+            background: rgba(232, 75, 138, 0.1); border: 1px solid var(--pink); color: var(--pink);
+            font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            padding: 0.4rem 1.2rem; border-radius: 50px; margin-bottom: 1.5rem;
         }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--charcoal);
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 800;
+            line-height: 1.15; margin-bottom: 1rem; color: var(--grey-dark);
         }
-
-        .hero h1 em {
-            color: var(--coral);
-            font-style: italic;
+        .hero-title span { color: var(--pink); }
+        .hero-sub {
+            font-size: 1.05rem; color: var(--text-muted);
+            margin-bottom: 2rem; max-width: 550px; margin-left: auto; margin-right: auto;
         }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--text-gray);
-            margin-bottom: 2.5rem;
-            max-width: 480px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
+            display: inline-block; font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.1em; padding: 1rem 2.5rem; border-radius: 50px;
+            text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none;
         }
-
         .btn-primary {
-            background: var(--coral);
-            color: white;
-            box-shadow: 0 10px 30px rgba(232, 115, 111, 0.3);
+            background: var(--pink); color: white;
+            box-shadow: 0 6px 25px var(--pink-glow);
         }
-
         .btn-primary:hover {
-            background: var(--coral-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(232, 115, 111, 0.4);
+            background: var(--pink-dark); transform: translateY(-2px);
+            box-shadow: 0 10px 35px rgba(232, 75, 138, 0.4);
         }
-
         .btn-secondary {
-            background: transparent;
-            color: var(--charcoal);
-            border: 2px solid var(--charcoal);
+            background: transparent; color: var(--pink);
+            border: 2px solid var(--pink);
         }
+        .btn-secondary:hover { background: rgba(232, 75, 138, 0.05); }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-        .btn-secondary:hover {
-            background: var(--charcoal);
-            color: white;
-        }
-
-        .hero-image {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 600px;
-            border-radius: 200px 200px 100px 100px;
-            overflow: hidden;
-            background: linear-gradient(180deg, var(--coral) 0%, var(--coral-dark) 100%);
-        }
-
-        .hero-image-wrapper::before {
-            content: '💪';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 8rem;
-            opacity: 0.3;
-        }
-
-        .floating-card {
-            position: absolute;
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .floating-card.card-1 {
-            top: 10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .floating-card.card-2 {
-            bottom: 20%;
-            right: -10%;
-            animation-delay: 1.5s;
-        }
-
-        .floating-card .number {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--coral);
-        }
-
-        .floating-card .label {
-            font-size: 0.75rem;
-            color: var(--text-gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* About Section */
-        .about {
-            padding: 8rem 5%;
-            background: white;
-        }
-
-        .about-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 5rem;
-            align-items: center;
-        }
-
-        .about-image {
-            position: relative;
-        }
-
-        .about-image-main {
-            width: 100%;
-            height: 550px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, var(--peach) 0%, var(--coral) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 6rem;
-        }
-
-        .about-image-accent {
-            position: absolute;
-            bottom: -30px;
-            right: -30px;
-            width: 200px;
-            height: 200px;
-            border-radius: 20px;
-            background: var(--charcoal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .experience-badge {
-            text-align: center;
-        }
-
-        .experience-badge .years {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 700;
-        }
-
-        .experience-badge .text {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
+        /* Section common */
         .section-tag {
-            display: inline-block;
-            color: var(--coral);
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.25em;
+            text-transform: uppercase; color: var(--pink);
         }
-
-        .about-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
+        section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800;
+            color: var(--grey-dark); margin: 0.5rem 0 1rem; line-height: 1.2;
         }
-
-        .about-content h2 em {
-            color: var(--coral);
-            font-style: italic;
+        .glow-divider {
+            height: 2px; max-width: 300px; margin: 4rem auto; opacity: 0.4;
+            background: linear-gradient(90deg, transparent, var(--pink), transparent);
+            animation: glowPulse 3s ease-in-out infinite;
         }
+        @keyframes glowPulse { 0%,100%{opacity:0.3;} 50%{opacity:0.6;} }
 
-        .about-content p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
+        /* About */
+        .about {
+            padding: 4rem 5%; max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
         }
-
+        .about-image {
+            background: var(--grey-bg); border-radius: 20px;
+            aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center;
+            font-size: 4rem; position: relative; overflow: hidden;
+        }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+        .about-content { }
+        .about-content p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
         .about-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 2rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;
         }
-
         .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 0.9rem; font-weight: 600; color: var(--grey-dark);
         }
+        .feature-item .fi { font-size: 1.3rem; }
 
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--peach);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .feature-text {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* Programs Section */
-        .programs {
-            padding: 8rem 5%;
-            background: var(--cream);
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 4rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            color: var(--text-gray);
-        }
-
+        /* Programs */
+        .programs { padding: 4rem 5%; text-align: center; }
         .programs-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; max-width: 1000px; margin: 2rem auto 0;
         }
-
         .program-card {
-            background: white;
-            border-radius: 25px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 20px; padding: 2.5rem 2rem; text-align: center;
+            transition: all 0.3s ease;
         }
-
-        .program-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--coral);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
         .program-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+            border-color: var(--pink); transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--pink-glow);
         }
-
-        .program-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .program-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--peach);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin: 0 auto 1.5rem;
-        }
-
+        .program-icon { font-size: 2.5rem; margin-bottom: 1rem; }
         .program-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--grey-dark);
         }
-
-        .program-card p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .program-card .btn {
-            padding: 0.8rem 1.5rem;
-            font-size: 0.8rem;
-        }
+        .program-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6; }
 
         /* Testimonials */
-        .testimonials {
-            padding: 8rem 5%;
-            background: var(--charcoal);
-            color: white;
-        }
-
-        .testimonials .section-header h2 {
-            color: white;
-        }
-
-        .testimonials .section-tag {
-            color: var(--coral);
-        }
-
+        .testimonials { padding: 4rem 5%; text-align: center; background: var(--grey-bg); }
         .testimonials-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; max-width: 1000px; margin: 2rem auto 0;
         }
-
         .testimonial-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 2.5rem;
-            position: relative;
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 16px; padding: 2rem; text-align: left;
         }
-
-        .testimonial-card::before {
-            content: '"';
-            font-family: 'Playfair Display', serif;
-            font-size: 6rem;
-            color: var(--coral);
-            opacity: 0.3;
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            line-height: 1;
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-            opacity: 0.9;
-            line-height: 1.8;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
+        .testimonial-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
         .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--coral);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--pink); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; font-weight: 700;
         }
+        .author-info h4 { font-size: 0.9rem; font-weight: 700; color: var(--grey-dark); }
+        .author-info span { font-size: 0.8rem; color: var(--pink); font-weight: 600; }
 
-        .author-info h4 {
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-
-        .author-info span {
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 5rem 5%;
-            background: var(--coral);
-            color: white;
-        }
-
-        .stats-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item .number {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .stat-item .label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 8rem 5%;
-            background: white;
-        }
-
-        .contact-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-        }
-
-        .contact-info h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info p {
-            color: var(--text-gray);
-            margin-bottom: 2rem;
-        }
-
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--peach);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-
-        .contact-method span {
-            color: var(--text-gray);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
-            width: 45px;
-            height: 45px;
-            background: var(--charcoal);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .social-link:hover {
-            background: var(--coral);
-            transform: translateY(-3px);
-        }
-
-        .contact-form form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-group label {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            padding: 1rem 1.5rem;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--coral);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
+        /* Contact */
+        .contact { padding: 4rem 5%; max-width: 800px; margin: 0 auto; text-align: center; }
+        .contact-methods { display: flex; gap: 2rem; justify-content: center; margin: 1.5rem 0; flex-wrap: wrap; }
+        .contact-method { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted); }
 
         /* Footer */
         footer {
-            background: var(--charcoal);
-            color: white;
-            padding: 4rem 5% 2rem;
+            text-align: center; padding: 2rem; border-top: 1px solid var(--card-border);
         }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
+        .footer-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem; font-weight: 800; letter-spacing: 0.1em;
+            color: var(--pink); margin-bottom: 0.5rem;
         }
+        .footer-ig a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; }
+        .footer-ig a:hover { color: var(--pink); }
+        .footer-credit { margin-top: 1rem; font-size: 0.7rem; color: var(--grey-light); }
+        .footer-credit a { color: var(--grey-light); text-decoration: none; }
+        .footer-credit a:hover { color: var(--pink); }
 
-        .footer-brand .logo {
-            color: white;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
+        /* Fade in */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-        .footer-brand p {
-            opacity: 0.7;
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-
-        .footer-section h4 {
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-section a {
-            color: white;
-            opacity: 0.7;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .footer-section a:hover {
-            opacity: 1;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 3rem auto 0;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-image {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .about-container {
-                grid-template-columns: 1fr;
-            }
-
-            .programs-grid,
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
+        /* Mobile */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .nav-links { display: none; }
+            .mobile-menu { display: flex; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: 0; right: 0; background: white;
+                padding: 1rem 5%; gap: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             }
-
-            .mobile-menu {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-features {
-                grid-template-columns: 1fr;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
+            .hero { min-height: 85vh; padding: 5rem 1.5rem 3rem; }
+            .about { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+            .about-image { max-width: 300px; margin: 0 auto; }
+            .programs { padding: 3rem 1.5rem; }
+            .testimonials { padding: 3rem 1.5rem; }
+            .contact { padding: 3rem 1.5rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav id="navbar">
-        <a href="#" class="logo">BOAB<span>FIT</span></a>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#programs">Programs</a></li>
-            <li><a href="#testimonials">Results</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="dashboard.html" style="color: var(--coral);">🎮 Dashboard</a></li>
-        </ul>
-        <div class="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+    <canvas id="particle-bg"></canvas>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <span class="hero-tag">Women's Fitness Specialist</span>
-                <h1>Transform Your Body. <em>Embrace</em> Your Strength.</h1>
-                <p>Hey hey! I'm Julia Marceau—ex-competitive cheerleader, track runner, and your biggest hype girl. Ready to feel amazing in your own skin? Let's make it happen, one workout at a time.</p>
+    <div class="content">
+        <!-- Nav -->
+        <nav id="navbar">
+            <a href="#" class="logo">BOAB<span>FIT</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+            <img src="https://images.squarespace-cdn.com/content/v1/67d49a6fbd9b696f2838f1d8/6da6c82c-6dc9-4a0b-bb4f-c4f358c4394b/Image+9-9-25+at+12.07%E2%80%AFPM.jpg"
+                 alt="BOABFIT" class="hero-bg" loading="eager">
+            <div class="hero-content">
+                <span class="hero-badge">Women's Fitness by Julia Marceau</span>
+                <h1 class="hero-title">Transform Your Body. <span>Embrace Your Strength.</span></h1>
+                <p class="hero-sub">Ex-competitive cheerleader, track runner, and your biggest hype girl. Ready to feel amazing in your own skin? Let's make it happen.</p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Start Your Journey →</a>
-                    <a href="#programs" class="btn btn-secondary">View Programs</a>
+                    <a href="#programs" class="btn btn-primary">View Programs</a>
+                    <a href="https://instagram.com/boabfit" target="_blank" class="btn btn-secondary">Follow @boabfit</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="hero-image-wrapper"></div>
-                <div class="floating-card card-1">
-                    <div class="number">500+</div>
-                    <div class="label">Women Transformed</div>
-                </div>
-                <div class="floating-card card-2">
-                    <div class="number">98%</div>
-                    <div class="label">Client Satisfaction</div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-container">
+        <div class="glow-divider"></div>
+
+        <!-- About -->
+        <section class="about fade-in" id="about">
             <div class="about-image">
-                <div class="about-image-main">🏋️‍♀️</div>
-                <div class="about-image-accent">
-                    <div class="experience-badge">
-                        <div class="years">10+</div>
-                        <div class="text">Years in<br>Fitness</div>
-                    </div>
-                </div>
+                <img src="https://images.squarespace-cdn.com/content/v1/67d49a6fbd9b696f2838f1d8/d267e721-0dd6-43c0-b636-e72f8c37e86c/IMG_1365.jpeg"
+                     alt="Julia Marceau" loading="lazy">
             </div>
             <div class="about-content">
                 <span class="section-tag">About Julia</span>
-                <h2>Your Girls' Girl in <em>Fitness</em></h2>
+                <h2>Your Girls' Girl in Fitness</h2>
                 <p>From competitive cheerleading mats to track fields, I've spent my life understanding what it takes to build a strong, confident body. Now I'm dedicated to sharing that knowledge with women who are ready to transform.</p>
-                <p>My approach isn't about extreme diets or punishing workouts. It's about smart, effective training designed specifically for the female body—focused on building strength, creating beautiful shape, and most importantly, helping you feel incredible in your own skin.</p>
+                <p>My approach isn't about extreme diets or punishing workouts. It's about smart, effective training designed for the female body — building strength, creating shape, and helping you feel incredible.</p>
                 <div class="about-features">
-                    <div class="feature-item">
-                        <div class="feature-icon">🎯</div>
-                        <div class="feature-text">Personalized Plans</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">💪</div>
-                        <div class="feature-text">Strength Focused</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">📱</div>
-                        <div class="feature-text">24/7 Support</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">❤️</div>
-                        <div class="feature-text">Body Positive</div>
-                    </div>
+                    <div class="feature-item"><span class="fi">🎯</span> Personalized Plans</div>
+                    <div class="feature-item"><span class="fi">💪</span> Strength Focused</div>
+                    <div class="feature-item"><span class="fi">📱</span> In-App Coaching</div>
+                    <div class="feature-item"><span class="fi">❤️</span> Body Positive</div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Programs Section -->
-    <section class="programs" id="programs">
-        <div class="section-header">
+        <div class="glow-divider"></div>
+
+        <!-- Programs -->
+        <section class="programs fade-in" id="programs">
             <span class="section-tag">Programs</span>
             <h2>Find Your Perfect Fit</h2>
-            <p>Whether you're just starting out or ready to level up, I've got a program designed for your goals.</p>
-        </div>
-        <div class="programs-grid">
-            <div class="program-card">
-                <div class="program-icon">🍑</div>
-                <h3>6-Week Barbie Body</h3>
-                <p>5 days a week, 30 minutes a day. Dumbbells + booty band. Fully guided workouts with video demos. I do every workout with you.</p>
-                <a href="6week.html" class="btn btn-primary">Join Now</a>
+            <p style="color:var(--text-muted); max-width:500px; margin:0 auto;">Whether you're just starting out or ready to level up, I've got a program for your goals.</p>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-icon">🍑</div>
+                    <h3>6-Week Barbie Body</h3>
+                    <p>5 days a week, 30 minutes a day. Dumbbells + booty band. Fully guided workouts with video demos. I do every workout with you.</p>
+                    <a href="6week.html" class="btn btn-primary">Join Now</a>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">🔥</div>
+                    <h3>Sculpt & Tone</h3>
+                    <p>Ready to shape up? This program targets all the right areas for that strong, feminine physique.</p>
+                    <span class="btn btn-secondary" style="opacity:0.5; cursor:default; pointer-events:none;">Coming Soon</span>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">⚡</div>
+                    <h3>Elite Performance</h3>
+                    <p>For experienced athletes who want to push boundaries and achieve peak physical condition.</p>
+                    <span class="btn btn-secondary" style="opacity:0.5; cursor:default; pointer-events:none;">Coming Soon</span>
+                </div>
             </div>
-            <div class="program-card">
-                <div class="program-icon">🔥</div>
-                <h3>Sculpt & Tone</h3>
-                <p>Ready to shape up? This program targets all the right areas for that strong, feminine physique.</p>
-                <span class="btn btn-secondary" style="opacity:0.6; cursor:default;">Coming Soon</span>
-            </div>
-            <div class="program-card">
-                <div class="program-icon">⚡</div>
-                <h3>Elite Performance</h3>
-                <p>For experienced athletes who want to push boundaries and achieve peak physical condition.</p>
-                <span class="btn btn-secondary" style="opacity:0.6; cursor:default;">Coming Soon</span>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Stats -->
-    <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="number">500+</div>
-                <div class="label">Happy Clients</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">10+</div>
-                <div class="label">Years Experience</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">15K+</div>
-                <div class="label">Workouts Delivered</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">98%</div>
-                <div class="label">Success Rate</div>
-            </div>
-        </div>
-    </section>
+        <div class="glow-divider"></div>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="section-header">
+        <!-- Testimonials -->
+        <section class="testimonials fade-in" id="results">
             <span class="section-tag">Success Stories</span>
             <h2>Real Women, Real Results</h2>
-        </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-text">Julia completely changed my relationship with fitness. For the first time, I actually enjoy working out and I've never felt stronger or more confident!</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">SK</div>
-                    <div class="author-info">
-                        <h4>Sarah K.</h4>
-                        <span>Lost 25 lbs</span>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Julia completely changed my relationship with fitness. For the first time, I actually enjoy working out and I've never felt stronger or more confident!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info"><h4>Sarah K.</h4><span>Lost 25 lbs</span></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The personalized attention is unreal. Julia designs every workout around MY goals. I've seen more progress in 3 months than I did in 3 years alone."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info"><h4>Maria R.</h4><span>Gained Confidence</span></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"As a busy mom, I thought getting fit was impossible. Julia showed me how to make it work with my schedule. Her energy is contagious!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JT</div>
+                        <div class="author-info"><h4>Jennifer T.</h4><span>Busy Mom of 3</span></div>
                     </div>
                 </div>
             </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">The personalized attention is unreal. Julia designs every workout around MY goals and MY body. I've seen more progress in 3 months than I did in 3 years alone.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">MR</div>
-                    <div class="author-info">
-                        <h4>Maria R.</h4>
-                        <span>Gained Confidence</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">As a busy mom, I thought getting fit was impossible. Julia showed me how to make it work with my schedule. Her energy is absolutely contagious!</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">JT</div>
-                    <div class="author-info">
-                        <h4>Jennifer T.</h4>
-                        <span>Busy Mom of 3</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-container">
-            <div class="contact-info">
-                <span class="section-tag">Get In Touch</span>
-                <h2>Ready to Transform?</h2>
-                <p>Fill out the form and I'll be in touch within 24 hours. Can't wait to hear from you and learn about your fitness goals!</p>
-                <div class="contact-methods">
-                    <div class="contact-method">
-                        <div class="contact-icon">📧</div>
-                        <span>hello@boabfit.com</span>
-                    </div>
-                    <div class="contact-method">
-                        <div class="contact-icon">📍</div>
-                        <span>Online Training Worldwide</span>
-                    </div>
-                </div>
-                <div class="social-links">
-                    <a href="https://instagram.com/boabfit" target="_blank" class="social-link">📸</a>
-                    <a href="#" class="social-link">📘</a>
-                    <a href="#" class="social-link">🎵</a>
-                </div>
-            </div>
-            <div class="contact-form">
-                <form action="#" method="POST">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" name="lastName" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>I'm Interested In</label>
-                        <select name="program">
-                            <option value="">Select a program...</option>
-                            <option value="foundation">Foundation (Beginner)</option>
-                            <option value="sculpt">Sculpt & Tone</option>
-                            <option value="elite">Elite Performance</option>
-                            <option value="custom">Custom Plan</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Tell Me About Your Goals</label>
-                        <textarea name="message" placeholder="Share your fitness journey, goals, and any questions you have..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message →</button>
-                </form>
-            </div>
-        </div>
-    </section>
+        <div class="glow-divider"></div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <a href="#" class="logo">BOAB<span>FIT</span></a>
-                <p>Empowering women to embrace their strength, one workout at a time. Your transformation starts here.</p>
+        <!-- Contact -->
+        <section class="contact fade-in" id="contact">
+            <span class="section-tag">Get In Touch</span>
+            <h2>Ready to Transform?</h2>
+            <p style="color:var(--text-muted); max-width:500px; margin:0 auto 1.5rem;">Follow me on Instagram or check out the 6-Week Barbie Body program to get started.</p>
+            <div class="contact-methods">
+                <div class="contact-method"><span>📧</span> info@boabfit.com</div>
+                <div class="contact-method"><span>📍</span> Online Training Worldwide</div>
+                <div class="contact-method"><span>📸</span> <a href="https://instagram.com/boabfit" target="_blank" style="color:var(--pink); text-decoration:none; font-weight:600;">@boabfit</a></div>
             </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#programs">Programs</a></li>
-                    <li><a href="#testimonials">Results</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+            <div style="margin-top: 2rem;">
+                <a href="6week.html" class="btn btn-primary">Start Your Journey</a>
             </div>
-            <div class="footer-section">
-                <h4>Programs</h4>
-                <ul>
-                    <li><a href="#contact">Foundation</a></li>
-                    <li><a href="#contact">Sculpt & Tone</a></li>
-                    <li><a href="#contact">Elite Performance</a></li>
-                    <li><a href="#contact">Custom Plans</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Connect</h4>
-                <ul>
-                    <li><a href="https://instagram.com/boabfit">Instagram</a></li>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">TikTok</a></li>
-                    <li><a href="#">YouTube</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 BOAB Fit. All rights reserved.</p>
-            <p>Built with 💪 by Julia Marceau</p>
-        </div>
-    </footer>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-brand">BOABFIT</div>
+            <div class="footer-ig"><a href="https://instagram.com/boabfit" target="_blank">@boabfit</a></div>
+            <div class="footer-credit">Site by <a href="https://marceausolutions.com" target="_blank" rel="noopener">Marceau Solutions</a></div>
+        </footer>
+    </div>
 
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
+    // Pink particles (same as 6week.html)
+    (function(){
+        var canvas=document.getElementById('particle-bg'),ctx=canvas.getContext('2d'),width,height,particles=[],mouse={x:-1000,y:-1000},PARTICLE_COUNT=window.innerWidth<768?80:180,time=0;
+        function resize(){width=canvas.width=window.innerWidth;height=canvas.height=window.innerHeight}
+        function noise(x,y,t){return Math.sin(x*0.008+t)*Math.cos(y*0.01+t*0.7)+Math.sin(x*0.006-t*0.5)*Math.cos(y*0.005+t*0.3)+Math.sin((x+y)*0.004+t*0.4)*0.5}
+        function createParticle(){var w=width||window.innerWidth,h=height||window.innerHeight;return{x:Math.random()*w,y:Math.random()*h,originX:Math.random()*w,originY:Math.random()*h,size:Math.random()*3+0.8,baseAlpha:Math.random()*0.35+0.08,drift:Math.random()*0.8+0.3,wobblePhase:Math.random()*Math.PI*2,wobbleSpeed:Math.random()*0.02+0.008,pulsePhase:Math.random()*Math.PI*2,pulseSpeed:Math.random()*0.025+0.01,angle:Math.random()*Math.PI*2,glow:Math.random()>0.75,_mouseBoost:0}}
+        function init(){resize();particles=[];for(var i=0;i<PARTICLE_COUNT;i++)particles.push(createParticle())}
+        function animate(){time+=0.006;ctx.clearRect(0,0,width,height);for(var i=0;i<particles.length;i++){var p=particles[i],n=noise(p.originX,p.originY,time),flowX=Math.cos(n*Math.PI*2)*p.drift,flowY=Math.sin(n*Math.PI*2)*p.drift;p.wobblePhase+=p.wobbleSpeed;p.pulsePhase+=p.pulseSpeed;p.x=p.originX+flowX*20+Math.sin(p.wobblePhase)*2.5;p.y=p.originY+flowY*20+Math.cos(p.wobblePhase*1.3)*2.5;p.originX+=Math.sin(time*0.4+p.angle)*0.08;p.originY+=Math.cos(time*0.3+p.angle)*0.08-0.03;if(p.originY<-30){p.originY=height+30;p.originX=Math.random()*width}if(p.originX<-30)p.originX=width+30;if(p.originX>width+30)p.originX=-30;var dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy),drawX=p.x,drawY=p.y;if(dist<150){var force=(150-dist)/150;drawX+=dx*force*0.15;drawY+=dy*force*0.15;p._mouseBoost=force}else{p._mouseBoost=0}var sizeMult=1+Math.sin(p.pulsePhase)*0.4,alpha=p.baseAlpha*(0.6+Math.sin(p.pulsePhase*0.7)*0.4);alpha=Math.min(0.8,alpha+p._mouseBoost*0.4);var fs=p.size*sizeMult*(1+p._mouseBoost*0.5);if(p.glow||p._mouseBoost>0.3){ctx.beginPath();ctx.arc(drawX,drawY,fs*8,0,Math.PI*2);ctx.fillStyle='rgba(232,75,138,'+(alpha*0.06)+')';ctx.fill()}ctx.beginPath();ctx.arc(drawX,drawY,fs,0,Math.PI*2);ctx.fillStyle='rgba(232,75,138,'+alpha+')';ctx.fill()}requestAnimationFrame(animate)}
+        document.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY});
+        document.addEventListener('mouseleave',function(){mouse.x=-1000;mouse.y=-1000});
+        document.addEventListener('touchmove',function(e){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY},{passive:true});
+        document.addEventListener('touchend',function(){mouse.x=-1000;mouse.y=-1000});
+        window.addEventListener('resize',resize);init();animate()
+    })();
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    // Nav
+    window.addEventListener('scroll',function(){var n=document.getElementById('navbar');n.classList.toggle('scrolled',window.scrollY>50)});
+    document.getElementById('navToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('open')});
+    document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('navLinks').classList.remove('open')})});
 
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert("Thanks for reaching out! Julia will be in touch within 24 hours. 💪");
-            this.reset();
-        });
-
-        // Animate stats on scroll
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.stat-item').forEach(item => {
-            observer.observe(item);
-        });
+    // Fade in
+    var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('visible')})},{threshold:0.1});
+    document.querySelectorAll('.fade-in').forEach(function(el){obs.observe(el)});
     </script>
 </body>
 </html>
